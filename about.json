@@ -1,0 +1,9 @@
+{
+  "name": "Recomp Showcase",
+  "component": true,
+  "about_url": "https://github.com/falcosfailsafe/recomp-theme",
+  "license_url": "https://opensource.org/licenses/MIT",
+  "authors": "homelab",
+  "theme_version": "0.1.0",
+  "minimum_discourse_version": "3.4.0"
+}
