@@ -267,11 +267,21 @@ class RecompHomepage extends Component {
     return this.allTopics.filter((t) => isShowcaseTopic(t)).length;
   }
 
+  get requestsCategoryUrl() {
+    const cat = this.site.categories?.find((c) => c.slug === "requests");
+    return cat ? `/c/${cat.slug}/${cat.id}` : "/c/requests";
+  }
+
+  get aiToolingCategoryUrl() {
+    const cat = this.site.categories?.find((c) => c.slug === "ai-tooling");
+    return cat ? `/c/${cat.slug}/${cat.id}` : "/c/ai-tooling";
+  }
+
   async loadShelves() {
     try {
       const [reqData, aiData] = await Promise.all([
-        ajax("/c/requests/35.json"),
-        ajax("/c/ai-tooling/37.json"),
+        ajax(`${this.requestsCategoryUrl}.json`),
+        ajax(`${this.aiToolingCategoryUrl}.json`),
       ]);
 
       const reqTopics = (reqData?.topic_list?.topics || [])
@@ -406,16 +416,16 @@ class RecompHomepage extends Component {
                     Inspect Release →
                   </a>
                   <a
-                    href="/c/requests/35"
+                    href={{this.requestsCategoryUrl}}
                     class="recomp-btn recomp-btn--ghost"
-                    {{on "click" (fn this.goToPath "/c/requests/35")}}
+                    {{on "click" (fn this.goToPath this.requestsCategoryUrl)}}
                   >
                     ▲ Vote on Bounties
                   </a>
                   <a
-                    href="/c/ai-tooling/37"
+                    href={{this.aiToolingCategoryUrl}}
                     class="recomp-btn recomp-btn--ghost"
-                    {{on "click" (fn this.goToPath "/c/ai-tooling/37")}}
+                    {{on "click" (fn this.goToPath this.aiToolingCategoryUrl)}}
                   >
                     🤖 AI Rewrites
                   </a>
@@ -511,9 +521,9 @@ class RecompHomepage extends Component {
                   <h2>🏆 Top Bounties & Port Requests</h2>
                 </div>
                 <a
-                  href="/c/requests/35"
+                  href={{this.requestsCategoryUrl}}
                   class="recomp-bento__more"
-                  {{on "click" (fn this.goToPath "/c/requests/35")}}
+                  {{on "click" (fn this.goToPath this.requestsCategoryUrl)}}
                 >
                   All Requests →
                 </a>
@@ -553,9 +563,9 @@ class RecompHomepage extends Component {
                   <h2>🤖 AI Rewrites & Tooling</h2>
                 </div>
                 <a
-                  href="/c/ai-tooling/37"
+                  href={{this.aiToolingCategoryUrl}}
                   class="recomp-bento__more"
-                  {{on "click" (fn this.goToPath "/c/ai-tooling/37")}}
+                  {{on "click" (fn this.goToPath this.aiToolingCategoryUrl)}}
                 >
                   Explore →
                 </a>
